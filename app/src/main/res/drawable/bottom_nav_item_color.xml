@@ -5,5 +5,8 @@
         android:color="@color/colorBackground"/>
     <item
         android:state_checked="true"
-        android:color="@color/colorBackground"/>
+        android:color="@color/colorBackground" />
+    <item
+        android:state_pressed="true"
+        android:color="@color/colorPrimaryDark" />
 </selector>
