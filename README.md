@@ -1,1 +1,1 @@
-Co-author: [a link](https://github.com/Damian-Narcis-Ionel) Damian Narcis-Ionel [a link]
+Co-author: [Damian Narcis-Ionel](https://github.com/Damian-Narcis-Ionel) 
