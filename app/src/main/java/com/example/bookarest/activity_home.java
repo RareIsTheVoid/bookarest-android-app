@@ -26,10 +26,15 @@ public class activity_home extends AppCompatActivity implements BottomNavigation
 
         setContentView(R.layout.activity_home);
 
+
+
+
         loadFragment(new fragment_home());
 
         BottomNavigationView navigation = findViewById(R.id.nav_home);
         navigation.setOnNavigationItemSelectedListener(this);
+
+
     }
 
 
