@@ -89,7 +89,6 @@
         app:layout_constraintTop_toBottomOf="@+id/et_signup_email"
         android:inputType="textPassword"
         >
-    //de facut show password in din java
     </EditText>
 
 
@@ -107,6 +106,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_signup_password"
+        android:fontFamily="@font/montserrat"
         >
 
     </Button>
