@@ -229,6 +229,7 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:text="@string/edit"
+            android:textStyle="bold"
             android:textAllCaps="false"
             android:textColor="@color/colorBackground"
             app:layout_constraintBottom_toBottomOf="parent"
