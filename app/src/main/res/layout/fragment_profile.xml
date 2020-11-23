@@ -39,7 +39,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_max="150dp"
             app:layout_constraintWidth_min="150dp"
-            android:background="@drawable/profile_picture_shape"/>
+            android:background="@drawable/profile_picture_shape"
+            android:scaleType="fitXY"
+            android:foreground="@drawable/profile_picture_shape"/>
 
 
         <TextView
