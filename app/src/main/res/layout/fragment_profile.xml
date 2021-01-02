@@ -195,30 +195,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_profile_birthdate_value"/>
 
-        //favourite genres
-
-        <TextView
-            android:id="@+id/tv_profile_favourite_genres"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/tv_profile_favourite_genres"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/tv_profile_country"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <Spinner
-            android:id="@+id/spinner_profile_favourite_genres"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_profile_country_value"
-            />
 
         <Button
             android:layout_width="wrap_content"
@@ -236,7 +212,7 @@
             android:textColor="@color/colorBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_profile_favourite_genres" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_profile_country_value" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
