@@ -90,8 +90,10 @@ public class fragment_home extends Fragment {
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                database.userBookCrossRefDAO().updateProgress(Integer.parseInt(input.getText().toString()), currentUser.getUser().getUserId(), currentlyReadingBook.getBookId());
+
                 progressBar.setProgress(Integer.parseInt(input.getText().toString())*100/totalPages);
-                tv_percentage.setText(progressBar.getProgress()+"%");
+                tv_percentage.setText(new StringBuilder().append(progressBar.getProgress()).append("%").toString());
             }
         });
 
@@ -109,11 +111,15 @@ public class fragment_home extends Fragment {
     private Book returnCurrentlyReadingBook() {
         Random random = new Random();
         return currentUser.getCurrentlyReading().get(random.nextInt(currentUser.getCurrentlyReading().size()));
+
     }
 
     private void setCurrentlyReadingText() {
         tv_bookTitle.setText(currentlyReadingBook.getTitle());
         tv_author.setText(database.authorDAO().getAuthorNameById(currentlyReadingBook.getAuthorOfBookId()));
+        int savedProgress = database.userBookCrossRefDAO().getProgress(currentUser.getUser().getUserId(), currentlyReadingBook.getBookId()) * 100 / currentlyReadingBook.getNumberOfPages();
+        tv_percentage.setText(new StringBuilder().append(savedProgress).append("%").toString());
+        progressBar.setProgress(savedProgress);
     }
 
     private void updateHomeFragment(){

@@ -19,11 +19,21 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     Button switchToLogin;
@@ -75,7 +85,18 @@ public class MainActivity extends AppCompatActivity {
         actSignUp=new ActivitySignup();
         tv_terms_of_service=findViewById(R.id.tv_terms_of_service);
 
-        database = Room.databaseBuilder(this, AppDb.class, "test1").allowMainThreadQueries().build();
+        database = Room.databaseBuilder(this, AppDb.class, "test2").allowMainThreadQueries().build();
+        //loadBooksIntoDatabase();
+        List<Book> books = database.bookDAO().getAllBooks();
+        List<Author> authors = database.authorDAO().getAllAuthors();
+
+
+        for(Book b: books) {
+            Log.v("testing", b.toString());
+        }
+        for(Author a:authors){
+            Log.v("testing", a.toString());
+        }
     }
 
 
@@ -102,5 +123,53 @@ public class MainActivity extends AppCompatActivity {
         dlg.getWindow().setLayout(1000,1600);
     }
 
+    private String loadJSONWithBooks(){
+        String json = null;
+        try {
+            InputStream inputStream = this.getAssets().open("aaa.json");
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return json;
+    }
 
+    private void loadBooksIntoDatabase(){
+        try {
+            JSONObject jsonObject = new JSONObject(loadJSONWithBooks());
+
+            Set<Book> books = new HashSet<>();
+            Set<Author> authors = new HashSet<>();
+
+            JSONArray array = jsonObject.getJSONArray("Books");
+            for(int i=0;i<array.length();i++){
+                int id = array.getJSONObject(i).getInt("id");
+                String title = array.getJSONObject(i).getString("title");
+                JSONObject authorJSON = new JSONObject(array.getJSONObject(i).getString("author"));
+                int authorId = authorJSON.getInt("id");
+                String authorName = authorJSON.getString("name");
+                Author author = new Author(authorId, authorName);
+                authors.add(author);
+                int noPages = array.getJSONObject(i).getInt("noPages");
+                books.add(new Book(id, title, author.getAuthorId(), noPages));
+            }
+
+            Iterator<Book> iterator = books.iterator();
+            while (iterator.hasNext()){
+                database.bookDAO().insertBook(iterator.next());
+            }
+
+            Iterator<Author> iterator2 = authors.iterator();
+            while (iterator2.hasNext()){
+                database.authorDAO().insertAuthor(iterator2.next());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

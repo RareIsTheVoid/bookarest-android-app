@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -28,4 +29,10 @@ public interface UserBookCrossRefDAO {
 
     @Query("SELECT bookId FROM UserBookCrossRef WHERE userId=:id AND category=:category")
     public List<Integer> getAllUserBooksIdRefByIdAndCategory(int id, int category);
+
+    @Query("UPDATE UserBookCrossRef SET progress=:progress WHERE userId=:userId AND bookId=:bookId")
+    public void updateProgress(int progress, int userId, int bookId);
+
+    @Query("SELECT progress FROM userbookcrossref WHERE userId=:userId AND bookId=:bookId")
+    public int getProgress(int userId, int bookId);
 }

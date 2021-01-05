@@ -95,11 +95,14 @@ public class activity_login extends AppCompatActivity {
 
         database.userDAO().insertUser(new User(0, "admin@gmail.com", "admin", "ADMIN", "ADMIN", "072ADMIN", 1, "01/01/2020", "Romania"));
 
-        database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 1, 3));
-        database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 2, 2));
-        database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 3, 2));
-        database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 4, 1));
-        database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 5, 1));
+        List<UserBookCrossRef> cross = database.userBookCrossRefDAO().getAllUserBookCrossRef();
+        if(cross.size()==0){
+            database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 1, 3, 12));
+            database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 2, 2, 25));
+            database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 3, 2, 37));
+            database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 4, 1, 0));
+            database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 5, 1, 0));
+        }
     }
 
     private void getCurrentUserData(String email) { // 1-wtr, 2-cr, 3-r

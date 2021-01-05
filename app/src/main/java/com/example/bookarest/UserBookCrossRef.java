@@ -9,11 +9,21 @@ public class UserBookCrossRef implements Serializable {
     public int userId;
     public int bookId;
     public int category;
+    public int progress;
 
-    public UserBookCrossRef(int userId, int bookId, int category) {
+    public UserBookCrossRef(int userId, int bookId, int category, int progress) {
         this.userId = userId;
         this.bookId = bookId;
         this.category = category;
+        this.progress = progress;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 
     public int getUserId() {
@@ -46,6 +56,7 @@ public class UserBookCrossRef implements Serializable {
                 "userId=" + userId +
                 ", bookId=" + bookId +
                 ", category=" + category +
+                ", progress=" + progress +
                 '}';
     }
 }
