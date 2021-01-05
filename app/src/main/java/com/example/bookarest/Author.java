@@ -5,21 +5,28 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Authors")
-public class Author {
+import java.io.Serializable;
 
-    @PrimaryKey(autoGenerate = true)
+@Entity(tableName = "Authors")
+public class Author implements Serializable {
+
+    @PrimaryKey()
     private int authorId;
 
     @ColumnInfo(name = "Name")
     private String name;
 
-    public Author(String name) {
+    public Author(int authorId, String name) {
+        this.authorId = authorId;
         this.name = name;
     }
 
     public int getAuthorId() {
         return authorId;
+    }
+
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
     public String getName() {
@@ -30,5 +37,11 @@ public class Author {
         this.name = name;
     }
 
-
+    @Override
+    public String toString() {
+        return "Author{" +
+                "authorId=" + authorId +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

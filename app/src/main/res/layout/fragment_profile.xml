@@ -76,15 +76,23 @@
 
         <TextView
             android:id="@+id/tv_profile_email_value"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/tv_profile_email_value"
             android:textSize="20dp"
+            android:textAlignment="textEnd"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_profile_name" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_profile_name"
+
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"/>
 
         //phone nr
 
@@ -197,6 +205,7 @@
 
 
         <Button
+            android:id="@+id/button_profile_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"

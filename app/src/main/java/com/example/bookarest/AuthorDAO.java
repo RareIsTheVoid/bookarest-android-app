@@ -19,9 +19,15 @@ public interface AuthorDAO {
     public void deleteAuthor(Author author);
 
     @Query("SELECT * FROM authors")
-    List<Author> getAllAuthors();
+    public List<Author> getAllAuthors();
+
+    @Query("SELECT authors.Name FROM authors WHERE authorId=:id")
+    public String getAuthorNameById(int id);
 
     @Transaction
     @Query("SELECT * From authors")
     public List<AuthorWithBooks> getAuthorsWithBooks();
+
+    @Query("DELETE FROM authors")
+    public void deleteAuthors();
 }

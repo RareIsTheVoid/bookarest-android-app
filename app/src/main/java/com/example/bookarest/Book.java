@@ -4,9 +4,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "Books")
-public class Book {
-    @PrimaryKey(autoGenerate = true)
+public class Book implements Serializable {
+    @PrimaryKey()
     private int bookId;
 
     @ColumnInfo(name="Title")
@@ -18,7 +20,8 @@ public class Book {
     @ColumnInfo(name="NumberOfPages")
     private int numberOfPages;
 
-    public Book(String title, int authorOfBookId, int numberOfPages) {
+    public Book(int bookId, String title, int authorOfBookId, int numberOfPages) {
+        this.bookId = bookId;
         this.title = title;
         this.authorOfBookId = authorOfBookId;
         this.numberOfPages = numberOfPages;
@@ -26,6 +29,10 @@ public class Book {
 
     public int getBookId() {
         return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 
     public String getTitle() {
@@ -40,10 +47,6 @@ public class Book {
         return authorOfBookId;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
     public void setAuthorOfBookId(int authorOfBookId) {
         this.authorOfBookId = authorOfBookId;
     }
@@ -54,5 +57,15 @@ public class Book {
 
     public void setNumberOfPages(int numberOfPages) {
         this.numberOfPages = numberOfPages;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", title='" + title + '\'' +
+                ", authorOfBookId=" + authorOfBookId +
+                ", numberOfPages=" + numberOfPages +
+                '}';
     }
 }

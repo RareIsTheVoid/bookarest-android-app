@@ -1,6 +1,7 @@
 package com.example.bookarest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,11 +12,18 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     Button switchToLogin;
@@ -23,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     activity_login actLogin;
     ActivitySignup actSignUp;
     TextView tv_terms_of_service;
+    public static AppDb database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +74,14 @@ public class MainActivity extends AppCompatActivity {
         actLogin= new activity_login();
         actSignUp=new ActivitySignup();
         tv_terms_of_service=findViewById(R.id.tv_terms_of_service);
+
+        database = Room.databaseBuilder(this, AppDb.class, "test1").allowMainThreadQueries().build();
     }
+
 
     private void switchActivities(AppCompatActivity activity) {
         Intent switchActivityIntent = new Intent(this, activity.getClass());
         startActivity(switchActivityIntent);
-
-
     }
 
 
@@ -90,4 +101,6 @@ public class MainActivity extends AppCompatActivity {
         dlg.show();
         dlg.getWindow().setLayout(1000,1600);
     }
+
+
 }

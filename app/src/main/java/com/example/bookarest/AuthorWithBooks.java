@@ -12,7 +12,20 @@ public class AuthorWithBooks {
 
     @Relation(
             parentColumn = "authorId",
-            entityColumn = "authorOfBookId"
+            entityColumn = "AuthorId"
     )
     public List<Book> books;
+
+    public AuthorWithBooks(Author author, List<Book> books) {
+        this.author = author;
+        this.books = books;
+    }
+
+    @Override
+    public String toString() {
+        return "AuthorWithBooks{" +
+                "author=" + author +
+                ", books=" + books +
+                '}';
+    }
 }
