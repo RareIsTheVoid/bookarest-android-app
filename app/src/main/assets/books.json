@@ -1,0 +1,319 @@
+{
+	"Books":[
+		{
+			"id":1,
+			"title":"Lord of the Flies",
+			"author":{
+				"id":1,
+				"name":"William Golding"
+			},
+			"noPages":219
+		},
+		{
+			"id":2,
+			"title":"The Shining",
+			"author":{
+				"id":2,
+				"name":"Stephen King"
+			},
+			"noPages":497
+		},
+		{
+			"id":3,
+			"title":"1984",
+			"author":{
+				"id":3,
+				"name":"George Orwell"
+			},
+			"noPages":312
+		},
+		{
+			"id":4,
+			"title":"Lolita",
+			"author":{
+				"id":4,
+				"name":"Vladimir Nabokov"
+			},
+			"noPages":250
+		},
+		{
+			"id":5,
+			"title":"The Trial",
+			"author":{
+				"id":5,
+				"name":"Franz Kafka"
+			},
+			"noPages":248
+		},
+		{
+			"id":6,
+			"title":"A Portrait of the Artist as a Young Man",
+			"author":{
+				"id":6,
+				"name":"James Joyce"
+			},
+			"noPages":284
+		},
+		{
+			"id":7,
+			"title":"The Stranger",
+			"author":{
+				"id":7,
+				"name":"Albert Camus"
+			},
+			"noPages":80
+		},
+		{
+			"id":8,
+			"title":"The Nausea",
+			"author":{
+				"id":8,
+				"name":"Jean-Paul Sartre"
+			},
+			"noPages":230
+		},
+		{
+			"id":9,
+			"title":"The Brothers Karamazov",
+			"author":{
+				"id":9,
+				"name":"Fyodor Dostoyevsky"
+			},
+			"noPages":1136
+		},
+		{
+			"id":10,
+			"title":"For Whom the Bell Tolls",
+			"author":{
+				"id":10,
+				"name":"Ernest Hemingway"
+			},
+			"noPages":568
+		},
+		{
+			"id":11,
+			"title":"East of Eden",
+			"author":{
+				"id":11,
+				"name":"John Steinbeck"
+			},
+			"noPages":800
+		},
+		{
+			"id":12,
+			"title":"Crime and Punishment",
+			"author":{
+				"id":9,
+				"name":"Fyodor Dostoyevsky"
+			},
+			"noPages":592
+		},
+		{
+			"id":13,
+			"title":"To Kill a Mockingbird",
+			"author":{
+				"id":12,
+				"name":"Harper Lee"
+			},
+			"noPages":372
+		},
+		{
+			"id":14,
+			"title":"The Sound and the Fury",
+			"author":{
+				"id":13,
+				"name":"William Faulkner"
+			},
+			"noPages":366
+		},
+		{
+			"id":15,
+			"title":"The Republic",
+			"author":{
+				"id":14,
+				"name":"Plato"
+			},
+			"noPages":416
+		},
+		{
+			"id":16,
+			"title":"The Picture of Dorian Gray",
+			"author":{
+				"id":15,
+				"name":"Oscar Wilde"
+			},
+			"noPages":272
+		},
+		{
+			"id":17,
+			"title":"One Flew Over the Cuckoo's Nest",
+			"author":{
+				"id":16,
+				"name":"Ken Kesey"
+			},
+			"noPages":408
+		},
+		{
+			"id":18,
+			"title":"Animal Farm",
+			"author":{
+				"id":3,
+				"name":"George Orwell"
+			},
+			"noPages":141
+		},
+		{
+			"id":19,
+			"title":"Ulysses",
+			"author":{
+				"id":6,
+				"name":"James Joyce"
+			},
+			"noPages":783
+		},
+		{
+			"id":20,
+			"title":"The Name of the Rose",
+			"author":{
+				"id":17,
+				"name":"Umberto Eco"
+			},
+			"noPages":536
+		},
+		{
+			"id":21,
+			"title":"Beyond Good and Evil",
+			"author":{
+				"id":18,
+				"name":"Friedrich Nietzsche"
+			},
+			"noPages":240
+		},
+		{
+			"id":22,
+			"title":"The Great Gatsby",
+			"author":{
+				"id":19,
+				"name":"F. Scott Fitzgerald"
+			},
+			"noPages":272
+		},
+		{
+			"id":23,
+			"title":"War and Peace",
+			"author":{
+				"id":20,
+				"name":"Leo Tolstoy"
+			},
+			"noPages":1392
+		},
+		{
+			"id":24,
+			"title":"Anna Karenina",
+			"author":{
+				"id":20,
+				"name":"Leo Tolstoy"
+			},
+			"noPages":964
+		},
+		{
+			"id":25,
+			"title":"The Castle",
+			"author":{
+				"id":5,
+				"name":"Franz Kafka"
+			},
+			"noPages":316
+		},
+		{
+			"id":26,
+			"title":"The Idiot",
+			"author":{
+				"id":9,
+				"name":"Fyodor Dostoyevsky"
+			},
+			"noPages":776
+		},
+		{
+			"id":27,
+			"title":"Metamorphosis",
+			"author":{
+				"id":5,
+				"name":"Franz Kafka"
+			},
+			"noPages":216
+		},
+		{
+			"id":28,
+			"title":"America",
+			"author":{
+				"id":5,
+				"name":"Franz Kafka"
+			},
+			"noPages":336
+		},
+		{
+			"id":29,
+			"title":"Stoner",
+			"author":{
+				"id":21,
+				"name":"John Williams"
+			},
+			"noPages":336
+		},
+		{
+			"id":30,
+			"title":"A Clockwork Orange",
+			"author":{
+				"id":22,
+				"name":"Anthony Burgess"
+			},
+			"noPages":224
+		},
+		{
+			"id":31,
+			"title":"A Hundred Years of Solitude",
+			"author":{
+				"id":23,
+				"name":"Gabriel Garcia Marquez"
+			},
+			"noPages":480
+		},
+		{
+			"id":32,
+			"title":"Notes from the Underground",
+			"author":{
+				"id":9,
+				"name":"Fyodor Dostoyevsky"
+			},
+			"noPages":174
+		},
+		{
+			"id":33,
+			"title":"Fight Club",
+			"author":{
+				"id":24,
+				"name":"Chuck Palahniuk"
+			},
+			"noPages":256
+		},
+		{
+			"id":34,
+			"title":"The Master and Margarita",
+			"author":{
+				"id":25,
+				"name":"Mikhail Bulgakov"
+			},
+			"noPages":484
+		},
+		{
+			"id":35,
+			"title":"The Myth of Sisyphus",
+			"author":{
+				"id":7,
+				"name":"Albert Camus"
+			},
+			"noPages":153
+		}
+	]
+}

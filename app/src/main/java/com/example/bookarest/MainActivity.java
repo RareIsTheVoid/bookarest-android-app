@@ -3,14 +3,12 @@ package com.example.bookarest;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,14 +23,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
@@ -86,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         tv_terms_of_service=findViewById(R.id.tv_terms_of_service);
 
         database = Room.databaseBuilder(this, AppDb.class, "test2").allowMainThreadQueries().build();
-        //loadBooksIntoDatabase();
+        loadBooksIntoDatabase();
         List<Book> books = database.bookDAO().getAllBooks();
         List<Author> authors = database.authorDAO().getAllAuthors();
 
@@ -126,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     private String loadJSONWithBooks(){
         String json = null;
         try {
-            InputStream inputStream = this.getAssets().open("aaa.json");
+            InputStream inputStream = this.getAssets().open("books.json");
             int size = inputStream.available();
             byte[] buffer = new byte[size];
             inputStream.read(buffer);

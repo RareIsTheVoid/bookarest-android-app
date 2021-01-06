@@ -85,14 +85,6 @@ public class activity_login extends AppCompatActivity {
     }
 
     private void insert() {
-        database.authorDAO().insertAuthor(new Author(1, "damian"));
-        database.authorDAO().insertAuthor(new Author(2, "Rares"));
-        database.bookDAO().insertBook(new Book(1, "carte1", 1, 12));
-        database.bookDAO().insertBook(new Book(2, "carte2", 1, 124));
-        database.bookDAO().insertBook(new Book(3, "carte3", 1, 125));
-        database.bookDAO().insertBook(new Book(4, "carte4", 2, 122));
-        database.bookDAO().insertBook(new Book(5, "carte5", 2, 121));
-
         database.userDAO().insertUser(new User(0, "admin@gmail.com", "admin", "ADMIN", "ADMIN", "072ADMIN", 1, "01/01/2020", "Romania"));
 
         List<UserBookCrossRef> cross = database.userBookCrossRefDAO().getAllUserBookCrossRef();
