@@ -6,10 +6,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.InputType;
@@ -22,7 +26,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 public class fragment_home extends Fragment {
@@ -32,7 +48,7 @@ public class fragment_home extends Fragment {
     ProgressBar progressBar;
     TextView tv_percentage, tv_bookTitle, tv_author;
     CurrentUser currentUser;
-    Book currentlyReadingBook;
+    public static Book currentlyReadingBook;
     AppDb database;
 
     @Override
@@ -40,6 +56,14 @@ public class fragment_home extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            loadCoversFromStorage();
+        } else {
+            signInAsAnonymous(mAuth);
+        }
 
         handleImage(v, img, R.id.img_home_currently_reading);
         initialization(v);
@@ -55,15 +79,31 @@ public class fragment_home extends Fragment {
         return v;
     }
 
+    private void signInAsAnonymous(FirebaseAuth mAuth) {
+        mAuth.signInAnonymously().addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                loadCoversFromStorage();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
     private void initialization(View view) {
         btn_update_progress = view.findViewById(R.id.button_home_update_progress);
         progressBar = view.findViewById(R.id.progress_home);
         tv_percentage = view.findViewById(R.id.tv_home_progress_percentage);
         tv_bookTitle = view.findViewById(R.id.tv_home_cr_title);
         tv_author = view.findViewById(R.id.tv_home_cr_author);
-
+        img = view.findViewById(R.id.img_home_currently_reading);
         activity_home act = (activity_home)getActivity();
         currentUser = act.currentUser;
+
+        //loadCoversFromStorage();
 
         database = MainActivity.database;
         updateHomeFragment();
@@ -130,6 +170,27 @@ public class fragment_home extends Fragment {
             tv_bookTitle.setText("Not reading anything right now...");
             tv_author.setText("Go find a book you like!");
             btn_update_progress.setEnabled(false);
+        }
+    }
+
+    void loadCoversFromStorage(){
+        if(fragment_home.currentlyReadingBook!=null){
+            StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
+            StorageReference coverRef = mStorageRef.child("the_shining.jpg");
+
+            final long ONE_MEGABYTE = 1024*1024;
+            coverRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length );
+                    img.setImageBitmap(bmp);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getActivity(), "No Such file or Path found!!", Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 }

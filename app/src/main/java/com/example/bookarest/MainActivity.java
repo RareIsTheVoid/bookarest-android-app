@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ActivitySignup actSignUp;
     TextView tv_terms_of_service;
     public static AppDb database;
+    public static List<BookCover> bookCoversData = new ArrayList<>();
 
 
     @Override
@@ -84,12 +86,12 @@ public class MainActivity extends AppCompatActivity {
         List<Author> authors = database.authorDAO().getAllAuthors();
 
 
-        for(Book b: books) {
-            Log.v("testing", b.toString());
-        }
-        for(Author a:authors){
-            Log.v("testing", a.toString());
-        }
+//        for(Book b: books) {
+//            Log.v("testing", b.toString());
+//        }
+//        for(Author a:authors){
+//            Log.v("testing", a.toString());
+//        }
     }
 
 

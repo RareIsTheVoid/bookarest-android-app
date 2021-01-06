@@ -65,7 +65,7 @@
 		},
 		{
 			"id":8,
-			"title":"The Nausea",
+			"title":"Nausea",
 			"author":{
 				"id":8,
 				"name":"Jean-Paul Sartre"
@@ -272,7 +272,7 @@
 		},
 		{
 			"id":31,
-			"title":"A Hundred Years of Solitude",
+			"title":"One Hundred Years of Solitude",
 			"author":{
 				"id":23,
 				"name":"Gabriel Garcia Marquez"
