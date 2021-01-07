@@ -50,25 +50,17 @@
     <string name="tv_home_cr_author">Author</string>
     <string name="tv_home_progress_percentage">0%</string>
     <string name="button_home_update_progress">Update progress</string>
-
-    <string-array name="spinner_profile_favourite_genres">
-        <item>Biography</item>
-        <item>Classics</item>
-        <item>Crime</item>
-        <item>Fiction</item>
-        <item>Fantasy</item>
-        <item>History</item>
-        <item>Horror</item>
-        <item>Manga</item>
-        <item>Comics</item>
-        <item>Nonfiction</item>
-        <item>Poetry</item>
-        <item>Philosophy</item>
-        <item>Psychology</item>
-        <item>Drama</item>
-        <item>Young Adult</item>
-        <item>Children\'s</item>
-        <item>Science</item>
-        <item>Religion</item>
-    </string-array>
+    <string name="interesting_fact_intro">Here is an interesting fact about you:</string>
+    <string name="fact1">You have read a total of 0 books.</string>
+    <string name="interesting_fact_intro2">And here is another one:</string>
+    <string name="fact2">You have read a total of 0 pages.</string>
+    <string name="comment">Knowledge is power pal.</string>
+    <string name="about">App developed in 2021 by Narcis-Ionel Damian and Rares-Mihai David.</string>
+    <string name="about_title">About</string>
+    <string name="button_my_books_edit">Edit my books</string>
+    <string name="rb_wtr">Want to read</string>
+    <string name="rb_cr">Currently reading</string>
+    <string name="rb_r">Read</string>
+    <string name="remember_email">Remember Email</string>
+    <string name="remember_password">Remember Password</string>
 </resources>

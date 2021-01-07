@@ -3,7 +3,9 @@ package com.example.bookarest;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -30,6 +33,9 @@ public class activity_login extends AppCompatActivity {
 
     private CurrentUser currentUser;
     EditText et_login_email, et_login_password;
+    CheckBox cb_remember_email;
+    CheckBox cb_remember_password;
+    public static final String prefName="AppPreferences";
 
 
     @Override
@@ -43,6 +49,7 @@ public class activity_login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         initialization();
+        retrieveSavedPrefs();
         tv_not_a_member.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,11 +78,8 @@ public class activity_login extends AppCompatActivity {
         actHome= new activity_home();
         et_login_email = findViewById(R.id.et_login_email);
         et_login_password = findViewById(R.id.et_login_password);
-
-
-
-        insert();
-
+        cb_remember_email = findViewById(R.id.cb_remember_email);
+        cb_remember_password = findViewById(R.id.cb_remember_password);
     }
 
     private void switchActivities(AppCompatActivity activity){
@@ -84,18 +88,6 @@ public class activity_login extends AppCompatActivity {
         startActivity(switchActivityIntent);
     }
 
-    private void insert() {
-        database.userDAO().insertUser(new User(0, "admin@gmail.com", "admin", "ADMIN", "ADMIN", "072ADMIN", 1, "01/01/2020", "Romania"));
-
-        List<UserBookCrossRef> cross = database.userBookCrossRefDAO().getAllUserBookCrossRef();
-        if(cross.size()==0){
-            database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 1, 3, 12));
-            database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 2, 2, 25));
-            database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 3, 2, 37));
-            database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 4, 1, 0));
-            database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(0, 5, 1, 0));
-        }
-    }
 
     private void getCurrentUserData(String email) { // 1-wtr, 2-cr, 3-r
         User user = database.userDAO().getUserByEmail(email);
@@ -124,6 +116,8 @@ public class activity_login extends AppCompatActivity {
     }
 
     private String validateLogIn(){
+        saveEmail();
+        savePassword();
         if(TextUtils.isEmpty(et_login_email.getText().toString())){
             Toast.makeText(this, "Email field cannot be empty!", Toast.LENGTH_LONG).show();
             return null;
@@ -141,5 +135,64 @@ public class activity_login extends AppCompatActivity {
             return null;
         }
         return et_login_email.getText().toString();
+    }
+
+    private void saveEmail(){
+        SharedPreferences.Editor editor = getSharedPreferences(prefName,MODE_PRIVATE).edit();
+
+
+        if(cb_remember_email.isChecked()){
+            editor.putBoolean("saveEmail",true);
+            if(TextUtils.isEmpty(et_login_email.getText().toString())){
+                Toast.makeText(this,"Please fill your email first",Toast.LENGTH_LONG);
+            }
+            else{
+                editor.putString("email",et_login_email.getText().toString());
+            }
+        }
+        else{
+            editor.putBoolean("saveEmail",false);
+        }
+        editor.apply();
+        editor.commit();
+    }
+
+    private void retrieveSavedPrefs(){
+        SharedPreferences sharedPrefs = getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        boolean saveEmail = sharedPrefs.getBoolean("saveEmail",false);
+        boolean savePassword = sharedPrefs.getBoolean("savePassword",false);
+
+        if(saveEmail){
+            String emailValue = sharedPrefs.getString("email","");
+            et_login_email.setText(emailValue);
+            cb_remember_email.setChecked(true);
+        }
+
+        if(savePassword){
+            String passValue = sharedPrefs.getString("password","");
+            et_login_password.setText(passValue);
+            cb_remember_password.setChecked(true);
+        }
+
+
+    }
+
+    private void savePassword(){
+        SharedPreferences.Editor editor = getSharedPreferences(prefName,MODE_PRIVATE).edit();
+
+        if(cb_remember_email.isChecked()){
+            editor.putBoolean("savePassword",true);
+            if(TextUtils.isEmpty(et_login_email.getText().toString())){
+                Toast.makeText(this,"Please fill your password first",Toast.LENGTH_LONG);
+            }
+            else{
+                editor.putString("password",et_login_password.getText().toString());
+            }
+        }
+        else{
+            editor.putBoolean("savePassword",false);
+        }
+        editor.apply();
+        editor.commit();
     }
 }

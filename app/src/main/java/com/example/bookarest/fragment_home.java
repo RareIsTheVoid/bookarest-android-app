@@ -39,6 +39,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class fragment_home extends Fragment {
@@ -55,18 +57,19 @@ public class fragment_home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
-
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
+
         if (user != null) {
             loadCoversFromStorage();
         } else {
             signInAsAnonymous(mAuth);
         }
 
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
         handleImage(v, img, R.id.img_home_currently_reading);
         initialization(v);
+        //insertSomeCrossRefs();
         btn_update_progress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,24 +77,15 @@ public class fragment_home extends Fragment {
             }
         });
 
+        List<UserBookCrossRef> refs = new ArrayList<>();
+        refs = database.userBookCrossRefDAO().getAllUserBookCrossRefByIdAndCategory(currentUser.getUser().getUserId(),2);
+        Log.v("creatie", refs.toString());
 
         // Inflate the layout for this fragment
         return v;
     }
 
-    private void signInAsAnonymous(FirebaseAuth mAuth) {
-        mAuth.signInAnonymously().addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                loadCoversFromStorage();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
 
-            }
-        });
-    }
 
     private void initialization(View view) {
         btn_update_progress = view.findViewById(R.id.button_home_update_progress);
@@ -106,6 +100,7 @@ public class fragment_home extends Fragment {
         //loadCoversFromStorage();
 
         database = MainActivity.database;
+        loadCurrentlyReading(currentUser);
         updateHomeFragment();
     }
 
@@ -131,8 +126,29 @@ public class fragment_home extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 database.userBookCrossRefDAO().updateProgress(Integer.parseInt(input.getText().toString()), currentUser.getUser().getUserId(), currentlyReadingBook.getBookId());
-
                 progressBar.setProgress(Integer.parseInt(input.getText().toString())*100/totalPages);
+
+                if(progressBar.getProgress() >= 100){
+                    //1-wtr,2-cr,3-r
+
+                    //sterg cartea din currently reading
+                    currentUser.removeFromCurrentlyReading(currentlyReadingBook);
+
+                    //adaug cartea in read:
+                    currentUser.addToRead(currentlyReadingBook);
+
+                    //modific in cross refs:
+                    database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(currentUser.getUser().getUserId(),currentlyReadingBook.getBookId(),3,69));
+
+                    //testez:
+                    Log.v("creatie","lista currently reading din current user: "+currentUser.getCurrentlyReading());
+
+                    List<UserBookCrossRef> refList = new ArrayList<>();
+                    refList = database.userBookCrossRefDAO().getAllUserBookCrossRefByIdAndCategory(currentUser.getUser().getUserId(),2);
+                    Log.v("creatie",refList.toString());
+
+                }
+
                 tv_percentage.setText(new StringBuilder().append(progressBar.getProgress()).append("%").toString());
             }
         });
@@ -150,6 +166,7 @@ public class fragment_home extends Fragment {
 
     private Book returnCurrentlyReadingBook() {
         Random random = new Random();
+
         return currentUser.getCurrentlyReading().get(random.nextInt(currentUser.getCurrentlyReading().size()));
 
     }
@@ -173,10 +190,25 @@ public class fragment_home extends Fragment {
         }
     }
 
+
+    private void signInAsAnonymous(FirebaseAuth mAuth) {
+        mAuth.signInAnonymously().addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                loadCoversFromStorage();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
     void loadCoversFromStorage(){
         if(fragment_home.currentlyReadingBook!=null){
             StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
-            StorageReference coverRef = mStorageRef.child("the_shining.jpg");
+            StorageReference coverRef = mStorageRef.child(MainActivity.bookCoversData.get(currentlyReadingBook.getBookId()).getCoverFile());
 
             final long ONE_MEGABYTE = 1024*1024;
             coverRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -193,4 +225,29 @@ public class fragment_home extends Fragment {
             });
         }
     }
+
+    void insertSomeCrossRefs(){
+        database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(currentUser.getUser().getUserId(),25,2,55));
+        database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(currentUser.getUser().getUserId(),26,2,56));
+        database.userBookCrossRefDAO().insertUserBookCrossRef(new UserBookCrossRef(currentUser.getUser().getUserId(),27,2,57));
+    }
+
+    void loadCurrentlyReading(CurrentUser currentUser){
+
+        List<UserBookCrossRef> cr = database.userBookCrossRefDAO().getAllUserBookCrossRefByIdAndCategory(currentUser.getUser().getUserId(),2);
+        currentUser.setCurrentlyReading(new ArrayList<Book>());
+
+        for(int i=0;i<cr.size();i++){
+            UserBookCrossRef currentCrossRef = cr.get(i);
+            Book currentBook = database.bookDAO().getBookById(currentCrossRef.bookId);
+
+            currentUser.addToCurrentlyReading(currentBook);
+
+        }
+
+        Log.v("loadCR", currentUser.getCurrentlyReading().toString());
+    }
+
+
+
 }

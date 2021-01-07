@@ -11,7 +11,7 @@
         android:id="@+id/frame_layout_want_to_read"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@id/frame_layout_currently_reading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_max="150dp"
@@ -20,43 +20,43 @@
 
         <ImageView
             android:id="@+id/iv_my_books_wtr1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center|bottom"
             android:layout_marginBottom="35dp"
             android:adjustViewBounds="true"
             android:background="@drawable/profile_picture_shape"
-            android:src="@drawable/demo_book"
+            android:foreground="@drawable/profile_picture_shape"
             android:scaleType="fitXY"
-            android:foreground="@drawable/profile_picture_shape"/>
+            android:src="@drawable/demo_book" />
 
         <ImageView
             android:id="@+id/iv_my_books_wtr2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="right|bottom"
             android:layout_marginTop="30dp"
             android:layout_marginRight="55dp"
             android:layout_marginBottom="35dp"
             android:adjustViewBounds="true"
             android:background="@drawable/profile_picture_shape"
-            android:src="@drawable/demo_book"
+            android:foreground="@drawable/profile_picture_shape"
             android:scaleType="fitXY"
-            android:foreground="@drawable/profile_picture_shape"/>
+            android:src="@drawable/demo_book" />
 
         <ImageView
             android:id="@+id/iv_my_books_wtr3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="left|bottom"
             android:layout_marginLeft="55dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="35dp"
             android:adjustViewBounds="true"
             android:background="@drawable/profile_picture_shape"
-            android:src="@drawable/demo_book"
+            android:foreground="@drawable/profile_picture_shape"
             android:scaleType="fitXY"
-            android:foreground="@drawable/profile_picture_shape"/>
+            android:src="@drawable/demo_book" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,6 +72,7 @@
         android:id="@+id/frame_layout_currently_reading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_max="150dp"
@@ -81,43 +82,43 @@
 
         <ImageView
             android:id="@+id/iv_my_books_cr1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center|bottom"
             android:layout_marginBottom="35dp"
             android:adjustViewBounds="true"
             android:background="@drawable/profile_picture_shape"
-            android:src="@drawable/demo_book"
+            android:foreground="@drawable/profile_picture_shape"
             android:scaleType="fitXY"
-            android:foreground="@drawable/profile_picture_shape"/>
+            android:src="@drawable/demo_book" />
 
         <ImageView
             android:id="@+id/iv_my_books_cr2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="right|bottom"
             android:layout_marginTop="30dp"
             android:layout_marginRight="55dp"
             android:layout_marginBottom="35dp"
             android:adjustViewBounds="true"
             android:background="@drawable/profile_picture_shape"
-            android:src="@drawable/demo_book"
+            android:foreground="@drawable/profile_picture_shape"
             android:scaleType="fitXY"
-            android:foreground="@drawable/profile_picture_shape"/>
+            android:src="@drawable/demo_book" />
 
         <ImageView
             android:id="@+id/iv_my_books_cr3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="left|bottom"
             android:layout_marginLeft="55dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="35dp"
             android:adjustViewBounds="true"
             android:background="@drawable/profile_picture_shape"
-            android:src="@drawable/demo_book"
+            android:foreground="@drawable/profile_picture_shape"
             android:scaleType="fitXY"
-            android:foreground="@drawable/profile_picture_shape"/>
+            android:src="@drawable/demo_book" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -134,7 +135,7 @@
         android:id="@+id/frame_layout_read"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_max="150dp"
         app:layout_constraintHeight_min="150dp"
@@ -143,43 +144,43 @@
 
         <ImageView
             android:id="@+id/iv_my_books_r1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center|bottom"
             android:layout_marginBottom="35dp"
             android:adjustViewBounds="true"
             android:background="@drawable/profile_picture_shape"
-            android:src="@drawable/demo_book"
+            android:foreground="@drawable/profile_picture_shape"
             android:scaleType="fitXY"
-            android:foreground="@drawable/profile_picture_shape"/>
+            android:src="@drawable/demo_book" />
 
         <ImageView
             android:id="@+id/iv_my_books_r2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="right|bottom"
             android:layout_marginTop="30dp"
             android:layout_marginRight="55dp"
             android:layout_marginBottom="35dp"
             android:adjustViewBounds="true"
             android:background="@drawable/profile_picture_shape"
-            android:src="@drawable/demo_book"
+            android:foreground="@drawable/profile_picture_shape"
             android:scaleType="fitXY"
-            android:foreground="@drawable/profile_picture_shape" />
+            android:src="@drawable/demo_book" />
 
         <ImageView
             android:id="@+id/iv_my_books_r3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="left|bottom"
             android:layout_marginLeft="55dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="35dp"
             android:adjustViewBounds="true"
             android:background="@drawable/profile_picture_shape"
-            android:src="@drawable/demo_book"
+            android:foreground="@drawable/profile_picture_shape"
             android:scaleType="fitXY"
-            android:foreground="@drawable/profile_picture_shape" />
+            android:src="@drawable/demo_book" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -190,6 +191,24 @@
             android:textSize="20dp"
             android:textStyle="bold" />
     </FrameLayout>
+
+    <Button
+        android:id="@+id/button_my_books_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_corners"
+        android:fontFamily="@font/montserrat"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:text="@string/button_my_books_edit"
+        android:textAllCaps="false"
+        android:textColor="@color/colorBackground"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame_layout_read" />
 
 
 

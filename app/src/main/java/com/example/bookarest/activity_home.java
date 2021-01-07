@@ -50,15 +50,8 @@ public class activity_home extends AppCompatActivity implements BottomNavigation
         navigation.setOnNavigationItemSelectedListener(this);
 
         currentUser= (CurrentUser) getIntent().getSerializableExtra("currentUser");
-//        Log.v("testing", currentUser.toString());
-//        String s = getIntent().getStringExtra("currentUser");
-//        Log.v("testing", s);
 
-        loadCoversData();
-
-//        for (BookCover c: MainActivity.bookCoversData) {
-//            Log.v("firebase", c.toString());
-//        }
+        Log.v("books", MainActivity.database.bookDAO().getAllBooks().toString());
     }
 
 
@@ -95,34 +88,4 @@ public class activity_home extends AppCompatActivity implements BottomNavigation
 
         return loadFragment(fragment);
     }
-
-    public void loadCoversData() {
-        final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://bookarest-bookcovers-rares-default-rtdb.firebaseio.com/");
-        final DatabaseReference reference = firebaseDatabase.getReference("Books");
-
-
-        final List<BookCover> coversData = new ArrayList<>();
-        //Log.v("fb", "1");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.v("fb", dataSnapshot.child("1").child("id").getValue().toString());
-                Log.v("fb", dataSnapshot.child("1").child("name").getValue().toString());
-                int i=0;
-                for(DataSnapshot ds: dataSnapshot.getChildren()){
-                    //Log.v("fb", dataSnapshot.child(String.valueOf(i)).child("id").getValue().toString());
-                    //Log.v("fb", dataSnapshot.child(String.valueOf(i++)).child("name").getValue().toString());
-                    BookCover bookCover = new BookCover(Integer.parseInt(dataSnapshot.child(String.valueOf(i)).child("id").getValue().toString()), dataSnapshot.child(String.valueOf(i++)).child("name").getValue().toString());
-                    MainActivity.bookCoversData.add(bookCover);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        //Log.v("fb", "2");
-    }
-
 }

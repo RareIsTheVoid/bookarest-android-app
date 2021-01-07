@@ -1,8 +1,5 @@
 package com.example.bookarest;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,12 +7,21 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,21 +36,20 @@ import java.util.List;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
-    Button switchToLogin;
-    Button switchToSignup;
+    Button         switchToLogin;
+    Button         switchToSignup;
     activity_login actLogin;
     ActivitySignup actSignUp;
-    TextView tv_terms_of_service;
-    public static AppDb database;
+    TextView       tv_terms_of_service;
+    public static AppDb           database;
     public static List<BookCover> bookCoversData = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
 
@@ -68,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         tv_terms_of_service.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlert(getString(R.string.terms_of_service_lorem),MainActivity.this);
+                showAlert(getString(R.string.terms_of_service_lorem), MainActivity.this);
             }
         });
     }
@@ -76,22 +81,15 @@ public class MainActivity extends AppCompatActivity {
     private void initialization() {
         switchToLogin = findViewById(R.id.button_login);
         switchToSignup = findViewById(R.id.button_signup);
-        actLogin= new activity_login();
-        actSignUp=new ActivitySignup();
-        tv_terms_of_service=findViewById(R.id.tv_terms_of_service);
+        actLogin = new activity_login();
+        actSignUp = new ActivitySignup();
+        tv_terms_of_service = findViewById(R.id.tv_terms_of_service);
+
+
+        loadCoversData();
 
         database = Room.databaseBuilder(this, AppDb.class, "test2").allowMainThreadQueries().build();
         loadBooksIntoDatabase();
-        List<Book> books = database.bookDAO().getAllBooks();
-        List<Author> authors = database.authorDAO().getAllAuthors();
-
-
-//        for(Book b: books) {
-//            Log.v("testing", b.toString());
-//        }
-//        for(Author a:authors){
-//            Log.v("testing", a.toString());
-//        }
     }
 
 
@@ -101,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void showAlert(String message, Context con){
-        AlertDialog.Builder dialog = new AlertDialog.Builder(con,R.style.DialogStyle);
+    private void showAlert(String message, Context con) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(con, R.style.DialogStyle);
 
         dialog.setMessage(message);
         dialog.setTitle(getString(R.string.dlg_terms_of_service_title));
@@ -115,10 +113,10 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dlg = dialog.create();
         dlg.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dlg.show();
-        dlg.getWindow().setLayout(1000,1600);
+        dlg.getWindow().setLayout(1000, 1600);
     }
 
-    private String loadJSONWithBooks(){
+    private String loadJSONWithBooks() {
         String json = null;
         try {
             InputStream inputStream = this.getAssets().open("books.json");
@@ -134,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         return json;
     }
 
-    private void loadBooksIntoDatabase(){
+    private void loadBooksIntoDatabase() {
         try {
             JSONObject jsonObject = new JSONObject(loadJSONWithBooks());
 
@@ -142,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             Set<Author> authors = new HashSet<>();
 
             JSONArray array = jsonObject.getJSONArray("Books");
-            for(int i=0;i<array.length();i++){
+            for (int i = 0; i < array.length(); i++) {
                 int id = array.getJSONObject(i).getInt("id");
                 String title = array.getJSONObject(i).getString("title");
                 JSONObject authorJSON = new JSONObject(array.getJSONObject(i).getString("author"));
@@ -155,16 +153,37 @@ public class MainActivity extends AppCompatActivity {
             }
 
             Iterator<Book> iterator = books.iterator();
-            while (iterator.hasNext()){
+            while (iterator.hasNext()) {
                 database.bookDAO().insertBook(iterator.next());
             }
 
             Iterator<Author> iterator2 = authors.iterator();
-            while (iterator2.hasNext()){
+            while (iterator2.hasNext()) {
                 database.authorDAO().insertAuthor(iterator2.next());
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
+
+    public void loadCoversData() {
+        final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://bookarest-bookcovers-rares-default-rtdb.firebaseio.com/");
+        final DatabaseReference reference = firebaseDatabase.getReference("Books");
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int i = 0;
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    BookCover bookCover = new BookCover(Integer.parseInt(dataSnapshot.child(String.valueOf(i)).child("id").getValue().toString()), dataSnapshot.child(String.valueOf(i++)).child("name").getValue().toString());
+                    MainActivity.bookCoversData.add(bookCover);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
 }
+

@@ -35,4 +35,8 @@ public interface UserBookCrossRefDAO {
 
     @Query("SELECT progress FROM userbookcrossref WHERE userId=:userId AND bookId=:bookId")
     public int getProgress(int userId, int bookId);
+
+    @Query("SELECT * FROM USERBOOKCROSSREF WHERE category=:category")
+    public UserBookCrossRef getAllByCategory(int category);
+
 }

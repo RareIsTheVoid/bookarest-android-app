@@ -8,11 +8,13 @@ import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,11 +98,11 @@ public class fragment_profile extends Fragment {
         LinearLayout linearLayout = new LinearLayout(getContext());
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-        EditText phoneNumberBox = new EditText(getContext());
+        final EditText phoneNumberBox = new EditText(getContext());
         phoneNumberBox.setHint("Phone number");
         linearLayout.addView(phoneNumberBox);
 
-        RadioGroup radioGroup = new RadioGroup(getContext());
+        final RadioGroup radioGroup = new RadioGroup(getContext());
         radioGroup.setOrientation(RadioGroup.VERTICAL);
         RadioButton radioButtonM = new RadioButton(getContext());
         radioButtonM.setText("Male");
@@ -143,8 +145,8 @@ public class fragment_profile extends Fragment {
         });
         linearLayout.addView(birthdateBox);
 
-        Spinner countryBox = new Spinner(getContext());
-        String[] items = new String[]{"Romania", "Milsugi", "Jajaja"};
+        final Spinner countryBox = new Spinner(getContext());
+        String[] items = new String[]{"Romania", "United Kingdom", "United States", "Germany", "Spain", "Canada"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, items);
         countryBox.setAdapter(adapter);
         linearLayout.addView(countryBox);
@@ -155,6 +157,29 @@ public class fragment_profile extends Fragment {
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                final String newPhone = phoneNumberBox.getText().toString();
+                final String newCountry = countryBox.getSelectedItem().toString();
+                final String myFormat = "MM/dd/yy";
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                final String newDate = sdf.format(myCalendar.getTime());
+                final int newSex = radioGroup.getCheckedRadioButtonId();
+
+                currentUser.getUser().setPhoneNumber(newPhone);
+                currentUser.getUser().setCountry(newCountry);
+                currentUser.getUser().setBirthDate(newDate);
+                currentUser.getUser().setSex(newSex);
+
+
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        MainActivity.database.userDAO().insertUser(new User(currentUser.getUser().getUserId(),currentUser.getUser().getEmail(),currentUser.getUser().getPassword(),currentUser.getUser().getFirstName(),currentUser.getUser().getLastName(),newPhone,newSex,newDate,newCountry));
+                        return null;
+                    }
+                };
+
+                //MainActivity.database.userDAO().insertUser(new User(currentUser.getUser().getUserId(),currentUser.getUser().getEmail(),currentUser.getUser().getPassword(),currentUser.getUser().getFirstName(),currentUser.getUser().getLastName(),newPhone,newSex,newDate,newCountry));
+                profileSetText();
             }
         });
 

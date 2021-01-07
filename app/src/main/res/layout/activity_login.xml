@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="64dp"
         android:hint="@string/login_hint_email"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,40 +62,22 @@
     </EditText>
 
 
-    <TextView
-        android:id="@+id/tv_forgot_password"
-        style="@style/SimpleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/tv_forgot_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_login_password"
-        android:clickable="true"
-        >
-
-    </TextView>
-
-
     <Button
-
         android:id="@+id/button_login_login"
         style="@style/FirstActivityButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginTop="130dp"
         android:background="@drawable/rounded_corners"
         android:fontFamily="@font/montserrat"
         android:text="@string/button_login"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_forgot_password">
+        app:layout_constraintTop_toBottomOf="@id/et_login_password"
+        tools:layout_editor_absoluteY="540dp">
 
     </Button>
 
@@ -114,5 +96,34 @@
         android:clickable="true">
 
     </TextView>
+
+    <CheckBox
+        android:id="@+id/cb_remember_email"
+        android:buttonTint="@color/colorFirstActivityButtons"
+        android:fontFamily="@font/montserrat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remember_email"
+        app:layout_constraintTop_toBottomOf="@id/et_login_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="140dp"/>
+
+    <CheckBox
+        android:id="@+id/cb_remember_password"
+        android:buttonTint="@color/colorFirstActivityButtons"
+        android:fontFamily="@font/montserrat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remember_password"
+        app:layout_constraintTop_toBottomOf="@+id/cb_remember_email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="115dp"
+        android:layout_marginTop="5dp"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

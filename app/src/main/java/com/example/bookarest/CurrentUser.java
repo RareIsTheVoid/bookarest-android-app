@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CurrentUser implements Serializable {
@@ -50,6 +51,28 @@ public class CurrentUser implements Serializable {
     public void setRead(List<Book> read) {
         this.read = read;
     }
+
+    public void addToRead(Book book){
+        this.read.add(book);
+    }
+
+    public void addToCurrentlyReading(Book book){
+        this.currentlyReading.add(book);
+    }
+
+    public void addToWantToRead(Book book){
+        this.wantToRead.add(book);
+    }
+
+    public void removeFromCurrentlyReading(Book book){
+
+        for(int i=0;i<currentlyReading.size();i++){
+            if(currentlyReading.get(i).getBookId() == book.getBookId()){
+                currentlyReading.remove(currentlyReading.get(i));
+            }
+        }
+    }
+
 
     @Override
     public String toString() {
